@@ -19,4 +19,4 @@
 - `src/scanner/`: İşlem ve kaynak tarayıcısı.
 - `src/guard/`: Kilitlenme dedektörü ve süreç yönetimi.
 - `src/cli.ts`: Terminal komutları (`top`, `audit`, `kill`).
-- `README.md`: Mac mini / VM ortamlarında kurulum, systemd / launchd servis yapılandırma örnekleri.
+- `README.md`: Mac mini / VM ortamlarında kurulum, systemd / launchd servis yapılandırma örnekleri.bu
