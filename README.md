@@ -72,6 +72,20 @@ npm run eval -- compare \
 
 The workflow only uses the repository’s `GITHUB_TOKEN`; it needs `pull-requests: write` and `issues: write` to publish the comment. On repositories that restrict tokens from forked pull requests, the evaluation still runs, but repository settings may need to permit PR comments from workflows.
 
+### Run from GitHub without a CLI
+
+Open the repository’s **Actions** tab, choose **Studio AI Toolkit CI & Evals**, then select **Run workflow** to run the complete suite on demand. Choose **Standalone skill eval report** when only the skill benchmark is needed; entering a PR number in its optional field updates that PR with the Markdown benchmark comment.
+
+### Optional CLI trigger
+
+The GitHub UI needs no local credentials beyond the user’s normal GitHub session. If a terminal trigger is preferred, install the GitHub CLI and authorize it locally—never paste a token into source code or chat:
+
+```bash
+gh auth login
+gh workflow run "Studio AI Toolkit CI & Evals" --repo imozkandev/game-ocp-mcp
+gh workflow run "Standalone skill eval report" --repo imozkandev/game-ocp-mcp --field pr_number=123
+```
+
 Example comment:
 
 ```markdown
@@ -142,6 +156,7 @@ src/cli.ts        skill-eval command-line interface
 skills/           v1 and v2 prompt examples
 evals/datasets/   scenarios and resolved smoke fixture
 evals/baselines/  committed baseline result
+.github/workflows/ci.yml       consolidated PR and main-branch CI
 .github/workflows/eval-regression.yml
 ```
 

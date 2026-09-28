@@ -2,6 +2,11 @@ name: Standalone skill eval report
 
 on:
   workflow_dispatch:
+    inputs:
+      pr_number:
+        description: "Optional pull request number to receive the benchmark comment"
+        required: false
+        type: string
 
 permissions:
   contents: read
@@ -35,15 +40,11 @@ jobs:
       - name: Generate current eval result and PR report
         run: |
           mkdir -p artifacts
-          node dist/cli.js run \
-            --dataset evals/datasets/resolved-smoke.json \
-            --output-json artifacts/current-result.json
-          node dist/cli.js compare \
-            --baseline evals/baselines/word-puzzle-v1.result.json \
-            --candidate artifacts/current-result.json \
+          npm run test:eval -- \
             --output-md artifacts/skill-eval-report.md
 
       - name: Publish or update PR comment
+        if: inputs.pr_number != ''
         uses: actions/github-script@v7
         with:
           script: |
@@ -52,7 +53,7 @@ jobs:
             const report = fs.readFileSync("artifacts/skill-eval-report.md", "utf8");
             const body = `${marker}\n${report}\n\n_Produced by the deterministic, zero-cost skill-eval CI._`;
             const { owner, repo } = context.repo;
-            const issue_number = context.payload.pull_request.number;
+            const issue_number = Number("${{ inputs.pr_number }}");
             const { data: comments } = await github.rest.issues.listComments({
               owner,
               repo,
