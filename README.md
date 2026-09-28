@@ -1,7 +1,7 @@
 <div align="center">
-  <img src="./assets/game-ops-studio-hero.png" alt="A dark, local-first AI game operations workstation with balancing, localization, guardrail, monitoring, and evaluation panels" width="100%" />
+  <img src="./assets/game-OCP-studio-hero.png" alt="A dark, local-first AI game operations workstation with balancing, localization, guardrail, monitoring, and evaluation panels" width="100%" />
 
-  # Game Ops MCP
+  # Game OCP MCP
 
   ### A local-first control room for AI-assisted game production
 
@@ -14,7 +14,7 @@
 </div>
 
 > [!TIP]
-> Game Ops MCP is not one narrow validator. It is a practical toolkit for validating game content, protecting Unity runtime code, observing local AI-agent workloads, and proving prompt improvements with deterministic evals—without requiring a paid model API.
+> Game OCP MCP is not one narrow validator. It is a practical toolkit for validating game content, protecting Unity runtime code, observing local AI-agent workloads, and proving prompt improvements with deterministic evals—without requiring a paid model API.
 
 ---
 
@@ -24,7 +24,7 @@
 
 ### Why it exists
 
-AI agents can accelerate game production, but they can also invent malformed level data, omit localization keys, introduce frame-loop allocations, leave background processes running, or claim a prompt is “better” without evidence. Game Ops MCP places deterministic checks at those hand-off points.
+AI agents can accelerate game production, but they can also invent malformed level data, omit localization keys, introduce frame-loop allocations, leave background processes running, or claim a prompt is “better” without evidence. Game OCP MCP places deterministic checks at those hand-off points.
 
 It is designed for a solo developer’s laptop, a shared Mac mini, or a Linux VM: run the tools locally, expose the content checks to an MCP client, inspect results in a browser, and enforce the same rules in GitHub Actions.
 
@@ -37,7 +37,7 @@ flowchart LR
   agent --> processes[Local agent processes\nand logs]
   agent --> prompts[Skill / system-prompt changes]
 
-  content --> mcp[Game Ops MCP\nBalance · Localization · Agent Evals]
+  content --> mcp[Game OCP MCP\nBalance · Localization · Agent Evals]
   unity --> guard[Unity Guard\nstatic runtime rules]
   processes --> monitor[Agent Monitor\nresources · watchdog · log audit]
   prompts --> evals[Skill Eval CI\nfixtures · assertions · delta]
@@ -113,7 +113,7 @@ Build first, then use an absolute path to `dist/index.js`.
 **Claude Code**
 
 ```bash
-claude mcp add game-ops -- node "$(pwd)/dist/index.js"
+claude mcp add game-OCP -- node "$(pwd)/dist/index.js"
 ```
 
 **Cursor** — add this to `~/.cursor/mcp.json`:
@@ -121,7 +121,7 @@ claude mcp add game-ops -- node "$(pwd)/dist/index.js"
 ```json
 {
   "mcpServers": {
-    "game-ops": {
+    "game-OCP": {
       "command": "node",
       "args": ["/absolute/path/to/game-ocp-mcp/dist/index.js"]
     }
@@ -265,7 +265,7 @@ evals/                       deterministic datasets and committed baselines
 
 ### Projenin amacı
 
-**Game Ops MCP**, yapay zekâ ile hızlanan oyun üretim sürecinde ortaya çıkan hataları daha yayınlanmadan yakalayan, yerel öncelikli bir araç setidir. Amaç yalnızca tek bir JSON dosyasını kontrol etmek değil; içerik kalitesinden Unity performansına, ajan süreçlerinden prompt regresyonlarına kadar üretim hattının kritik noktalarını görünür ve ölçülebilir yapmaktır.
+**Game OCP MCP**, yapay zekâ ile hızlanan oyun üretim sürecinde ortaya çıkan hataları daha yayınlanmadan yakalayan, yerel öncelikli bir araç setidir. Amaç yalnızca tek bir JSON dosyasını kontrol etmek değil; içerik kalitesinden Unity performansına, ajan süreçlerinden prompt regresyonlarına kadar üretim hattının kritik noktalarını görünür ve ölçülebilir yapmaktır.
 
 Bir ajan yanlış seviye dengesi üretebilir, çeviri anahtarını atlayabilir, `Update()` içine maliyetli kod ekleyebilir veya iyileştirilmiş görünen bir promptun gerçekte daha kötü sonuç vermesine neden olabilir. Bu repo, bu riskleri **deterministik kurallarla** denetler.
 
@@ -327,7 +327,7 @@ Derleme sonrasında MCP sunucusu üç aracı stdio üzerinden yayınlar: `lint_l
 **Claude Code**
 
 ```bash
-claude mcp add game-ops -- node "$(pwd)/dist/index.js"
+claude mcp add game-OCP -- node "$(pwd)/dist/index.js"
 ```
 
 **Cursor** — `~/.cursor/mcp.json` içine ekleyin:
@@ -335,7 +335,7 @@ claude mcp add game-ops -- node "$(pwd)/dist/index.js"
 ```json
 {
   "mcpServers": {
-    "game-ops": {
+    "game-OCP": {
       "command": "node",
       "args": ["/absolute/path/to/game-ocp-mcp/dist/index.js"]
     }
