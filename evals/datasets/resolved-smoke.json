@@ -1,0 +1,23 @@
+{
+  "scenarios": [
+    {
+      "id": "json-contract",
+      "input": "Return a starter puzzle level.",
+      "output": "{\"title\":\"Play easy\",\"difficulty\":\"easy\"}",
+      "criteria": {
+        "validJson": true,
+        "requiredKeywords": ["play", "easy"]
+      }
+    },
+    {
+      "id": "forbidden-copy",
+      "input": "Return an advanced puzzle level.",
+      "output": "{\"title\":\"Play advanced\",\"difficulty\":\"advanced\"}",
+      "criteria": {
+        "validJson": true,
+        "requiredKeywords": ["play", "advanced"],
+        "forbiddenKeywords": ["placeholder"]
+      }
+    }
+  ]
+}

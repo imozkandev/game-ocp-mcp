@@ -1,0 +1,73 @@
+{
+  "suite": "word-puzzle-mobile",
+  "version": "1.0.0",
+  "description": "Deterministic mobile word-puzzle cases for validating schema adherence, grid boundaries, difficulty handling, and edge cases.",
+  "outputContract": {
+    "requiredKeys": ["levelId", "difficulty", "theme", "gridSize", "grid", "words", "hint"],
+    "directions": ["horizontal", "vertical"],
+    "gridSizeRange": [4, 8],
+    "difficultyRange": [1, 10]
+  },
+  "scenarios": [
+    {
+      "id": "tutorial-pets-4x4",
+      "difficulty": 1,
+      "input": "Create a tutorial pet-themed level for a first-time player.",
+      "constraints": { "theme": "pets", "gridSize": 4, "targetWordCount": 3, "maxWordLength": 4, "bannedWords": [], "allowIntersections": false }
+    },
+    {
+      "id": "garden-5x5-basics",
+      "difficulty": 2,
+      "input": "Create a calm garden level with beginner-friendly vocabulary.",
+      "constraints": { "theme": "garden", "gridSize": 5, "targetWordCount": 4, "maxWordLength": 5, "bannedWords": ["WEED"], "allowIntersections": true }
+    },
+    {
+      "id": "ocean-crossing-5x5",
+      "difficulty": 3,
+      "input": "Create an ocean level where at least two words share one matching letter.",
+      "constraints": { "theme": "ocean", "gridSize": 5, "targetWordCount": 4, "maxWordLength": 5, "bannedWords": [], "allowIntersections": true, "minimumIntersections": 1 }
+    },
+    {
+      "id": "space-no-diagonals-6x6",
+      "difficulty": 4,
+      "input": "Create a space-exploration level without diagonal or reverse word placement.",
+      "constraints": { "theme": "space", "gridSize": 6, "targetWordCount": 5, "maxWordLength": 6, "bannedWords": [], "allowIntersections": true, "allowedDirections": ["horizontal", "vertical"] }
+    },
+    {
+      "id": "food-unique-words-6x6",
+      "difficulty": 5,
+      "input": "Create a street-food level with unique answers only.",
+      "constraints": { "theme": "food", "gridSize": 6, "targetWordCount": 6, "maxWordLength": 6, "bannedWords": ["TACO"], "allowIntersections": true, "caseInsensitiveUniqueWords": true }
+    },
+    {
+      "id": "travel-ascii-normalization-6x6",
+      "difficulty": 6,
+      "input": "Create a travel level using only uppercase ASCII letters in the puzzle grid.",
+      "constraints": { "theme": "travel", "gridSize": 6, "targetWordCount": 6, "maxWordLength": 6, "bannedWords": ["PARIS"], "allowIntersections": true, "asciiOnly": true }
+    },
+    {
+      "id": "music-boundary-7x7",
+      "difficulty": 7,
+      "input": "Create a music level that uses a word touching the final row or final column without exceeding the grid.",
+      "constraints": { "theme": "music", "gridSize": 7, "targetWordCount": 7, "maxWordLength": 7, "bannedWords": [], "allowIntersections": true, "mustTouchBoundary": true }
+    },
+    {
+      "id": "mythology-dense-7x7",
+      "difficulty": 8,
+      "input": "Create a mythology level with dense but valid crossings.",
+      "constraints": { "theme": "mythology", "gridSize": 7, "targetWordCount": 8, "maxWordLength": 7, "bannedWords": ["ZEUS"], "allowIntersections": true, "minimumIntersections": 3 }
+    },
+    {
+      "id": "science-long-words-8x8",
+      "difficulty": 9,
+      "input": "Create a science level with carefully bounded long answers.",
+      "constraints": { "theme": "science", "gridSize": 8, "targetWordCount": 8, "maxWordLength": 8, "bannedWords": [], "allowIntersections": true, "minimumIntersections": 4 }
+    },
+    {
+      "id": "impossible-mini-grid-4x4",
+      "difficulty": 10,
+      "input": "Create a 4x4 extreme challenge using a required five-letter word.",
+      "constraints": { "theme": "challenge", "gridSize": 4, "targetWordCount": 1, "maxWordLength": 4, "requiredWords": ["FIVE"], "bannedWords": [], "allowIntersections": false, "expectGracefulEmptyResult": true }
+    }
+  ]
+}

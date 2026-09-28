@@ -1,0 +1,8 @@
+{
+  "welcome": "Willkommen zurück, {playerName}!",
+  "levelProgress": "Du hast {count} Level abgeschlossen.",
+  "buttons": {
+    "play": "Jetzt spielen",
+    "claim": "{rewardCoins} Münzen abholen"
+  }
+}

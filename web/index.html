@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Local game content validation studio" />
+    <title>Game Ops Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#top" aria-label="Game Ops Studio home">
+          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span>game ops <b>studio</b></span>
+        </a>
+        <div class="topbar-links"><a href="https://ozkandev.com" target="_blank" rel="noreferrer">ozkandev.com ↗</a><button class="settings-button" id="open-settings" type="button">Settings <span>⚙</span></button><div class="local-status"><span></span> Local MCP toolkit</div></div>
+      </header>
+
+      <section class="hero" id="top">
+        <p class="eyebrow">DETERMINISTIC GAME QA</p>
+        <h1>Turn game-production uncertainty<br />into <em>actionable checks.</em></h1>
+        <p class="hero-copy">Validate balance tables, translations, and agent-generated content with local rules. Every result is traceable, repeatable, and easy to explain.</p>
+        <div class="hero-pills">
+          <span>6 local tools</span><span>No API keys</span><span>Local-first</span>
+        </div>
+      </section>
+
+      <section class="workspace" aria-label="Tool workspace">
+        <div class="tabs" role="tablist" aria-label="Validation tools">
+          <button class="tab is-active" role="tab" aria-selected="true" aria-controls="balance-panel" id="balance-tab" data-tab="balance">01 <span>Balance lint</span></button>
+          <button class="tab" role="tab" aria-selected="false" aria-controls="localization-panel" id="localization-tab" data-tab="localization">02 <span>Localization audit</span></button>
+          <button class="tab" role="tab" aria-selected="false" aria-controls="eval-panel" id="eval-tab" data-tab="eval">03 <span>Agent evals</span></button>
+          <button class="tab" role="tab" aria-selected="false" aria-controls="unity-panel" id="unity-tab" data-tab="unity">04 <span>Unity Guard</span></button>
+          <button class="tab" role="tab" aria-selected="false" aria-controls="monitor-panel" id="monitor-tab" data-tab="monitor">05 <span>Agent Monitor</span></button>
+          <button class="tab" role="tab" aria-selected="false" aria-controls="skill-eval-panel" id="skill-eval-tab" data-tab="skill-eval">06 <span>Skill Eval CI</span></button>
+        </div>
+
+        <div class="tool-layout">
+          <section class="tool-card">
+            <div class="panel is-active" id="balance-panel" role="tabpanel" aria-labelledby="balance-tab">
+              <div class="panel-intro"><p class="tool-index">TOOL 01</p><h2>Level balance linter</h2><p>Prevent bad progression tuning from reaching players. It flags balance anomalies while preserving valid level data.</p></div>
+              <div class="tool-guide"><p>HOW IT WORKS</p><ol><li><b>01</b>Reads a level JSON file.</li><li><b>02</b>Validates <code>levelId</code>, score, moves, and rewards.</li><li><b>03</b>Flags zero rewards, invalid moves, and sudden move spikes.</li></ol></div>
+              <label for="level-path">Level JSON path</label>
+              <div class="field-row"><input id="level-path" value="examples/levels.json" spellcheck="false" /><button class="primary-action" data-action="lint">Run analysis <span>↗</span></button></div>
+              <p class="field-hint">Accepts a top-level array or <code>{ "levels": [...] }</code>.</p>
+            </div>
+
+            <div class="panel" id="localization-panel" role="tabpanel" aria-labelledby="localization-tab" hidden>
+              <div class="panel-intro"><p class="tool-index">TOOL 02</p><h2>Localization audit</h2><p>Keep every language complete and safe for runtime string interpolation before a release.</p></div>
+              <div class="tool-guide"><p>HOW IT WORKS</p><ol><li><b>01</b>Loads a base locale, usually <code>en.json</code>.</li><li><b>02</b>Compares every target key against that reference.</li><li><b>03</b>Reports missing keys and mismatched <code>{param}</code> values.</li></ol></div>
+              <label for="locale-path">Locale directory</label>
+              <input id="locale-path" value="examples/locales" spellcheck="false" />
+              <div class="split-fields"><div><label for="base-language">Reference file</label><input id="base-language" value="en.json" spellcheck="false" /></div><button class="primary-action align-end" data-action="localization">Run audit <span>↗</span></button></div>
+              <p class="field-hint">The sample <code>tr.json</code> intentionally has one missing key and one broken <code>{playerName}</code> variable.</p>
+            </div>
+
+            <div class="panel" id="eval-panel" role="tabpanel" aria-labelledby="eval-tab" hidden>
+              <div class="panel-intro"><p class="tool-index">TOOL 03</p><h2>Agent eval runner</h2><p>Score generated content with deterministic assertions instead of trusting a model’s own assessment.</p></div>
+              <div class="tool-guide"><p>HOW IT WORKS</p><ol><li><b>01</b>Parses generated content with a strict schema.</li><li><b>02</b>Runs task-specific assertions.</li><li><b>03</b>Returns pass/fail scenarios and a 0–100 score.</li></ol></div>
+              <div class="select-label"><label for="eval-type">Evaluation type</label><select id="eval-type"><option value="push_notification">Push notification</option><option value="word_puzzle">Word puzzle</option></select></div>
+              <label for="generated-output">Generated JSON</label>
+              <textarea id="generated-output" spellcheck="false">{
+  "title": "New quest unlocked!",
+  "body": "Play now to claim your reward.",
+  "cta": "Play now"
+}</textarea>
+              <button class="primary-action full-width" data-action="eval">Run evaluation <span>↗</span></button>
+            </div>
+
+            <div class="panel" id="unity-panel" role="tabpanel" aria-labelledby="unity-tab" hidden>
+              <div class="panel-intro"><p class="tool-index">TOOL 04</p><h2>Unity Guard</h2><p>Catch performance and Inspector API regressions in Unity C# before they reach a commit.</p></div>
+              <div class="tool-guide"><p>WHAT IT CHECKS</p><ol><li><b>01</b>Scans <code>Update</code>, <code>LateUpdate</code>, and <code>FixedUpdate</code>.</li><li><b>02</b>Flags allocations, LINQ, component lookups, and scene searches.</li><li><b>03</b>Suggests <code>[SerializeField] private</code> for public Inspector fields.</li></ol></div>
+              <label for="unity-path">C# file or Unity project path</label>
+              <div class="field-row"><input id="unity-path" value="examples/BadPlayerController.cs" spellcheck="false" /><button class="primary-action" data-action="unity-guard">Scan C# <span>↗</span></button></div>
+              <div class="sample-actions"><button type="button" data-action="load-bad-sample">Load bad sample</button><button type="button" data-action="load-clean-sample">Load clean sample</button></div>
+              <p class="field-hint">The bad sample reports frame-loop violations. The clean sample caches references and passes the scan.</p>
+            </div>
+
+            <div class="panel" id="monitor-panel" role="tabpanel" aria-labelledby="monitor-tab" hidden>
+              <div class="panel-intro"><p class="tool-index">TOOL 05</p><h2>Agent Monitor</h2><p>See the Claude, Cursor, Codex, MCP, and Python processes running on this machine before they become invisible background work.</p></div>
+              <div class="tool-guide"><p>WHAT YOU SEE</p><ol><li><b>01</b>Discovers local agent processes by command.</li><li><b>02</b>Collects PID, CPU, memory, and uptime.</li><li><b>03</b>Audits logs for rate-limit and connection failures.</li></ol></div>
+              <div class="field-row monitor-actions"><button class="primary-action" data-action="monitor-list">Refresh processes <span>↗</span></button><label class="live-toggle" for="monitor-live"><input id="monitor-live" type="checkbox" /> Live refresh</label><select id="monitor-interval" aria-label="Live refresh interval"><option value="2">Every 2s</option><option value="5">Every 5s</option><option value="10">Every 10s</option></select></div>
+              <label for="monitor-log-path">Agent log file or directory <span class="optional">optional</span></label>
+              <div class="field-row"><input id="monitor-log-path" placeholder="/path/to/agent/logs" spellcheck="false" /><button class="primary-action" data-action="monitor-audit">Audit logs <span>↗</span></button></div>
+              <p class="field-hint">Live refresh runs only while this tab is open. Process and log data stay on this machine.</p>
+            </div>
+
+            <div class="panel" id="skill-eval-panel" role="tabpanel" aria-labelledby="skill-eval-tab" hidden>
+              <div class="panel-intro"><p class="tool-index">TOOL 06</p><h2>Skill Eval CI</h2><p>Prove that a prompt improvement is actually better before it lands in a pull request.</p></div>
+              <div class="tool-guide"><p>HOW IT WORKS</p><ol><li><b>01</b>Uses the weak v1 output as a committed baseline.</li><li><b>02</b>Runs the v2 fixture through JSON and content assertions.</li><li><b>03</b>Calculates the delta and formats a PR-ready Markdown comment.</li></ol></div>
+              <div class="version-grid" aria-label="Skill versions being compared">
+                <article class="version-card baseline"><p>V1 · BASELINE</p><strong>Loose instructions</strong><span>50% score · 1/2 scenarios</span></article>
+                <article class="version-card candidate"><p>V2 · CURRENT</p><strong>Explicit JSON contract</strong><span>Runs against local assertions</span></article>
+              </div>
+              <button class="primary-action full-width" data-action="skill-eval">Run comparison <span>↗</span></button>
+              <p class="field-hint">No model provider is called. This local demo compares captured v1 output with the deterministic v2 smoke dataset and renders the same report used by CI.</p>
+            </div>
+          </section>
+
+          <aside class="results-card" aria-live="polite">
+            <div class="results-header"><div><p class="tool-index">RESULT</p><h2>Run output</h2></div><span class="result-state" id="result-state">READY</span></div>
+            <div class="result-empty" id="result-empty"><span class="empty-symbol">✦</span><p>Run a tool to begin.</p><small>Structured findings will appear here.</small></div>
+            <div class="result-body" id="result-body" hidden>
+              <div class="result-summary" id="result-summary"></div>
+              <ul class="issues-list" id="issues-list"></ul>
+              <details id="markdown-preview-details" hidden><summary>PR comment preview</summary><pre id="markdown-preview"></pre></details>
+              <details><summary>Raw JSON output</summary><pre id="raw-output"></pre></details>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <footer><span>GAME-OPS-MCP</span><a href="https://ozkandev.com" target="_blank" rel="noreferrer">ozkandev.com</a><span>Local validation workstation · v0.1.0</span></footer>
+    </main>
+    <dialog class="settings-dialog" id="settings-dialog" aria-labelledby="settings-title">
+      <form method="dialog">
+        <div class="dialog-header"><div><p class="tool-index">LOCAL CONFIGURATION</p><h2 id="settings-title">API settings</h2></div><button class="dialog-close" value="cancel" aria-label="Close settings">×</button></div>
+        <p>Store optional credentials for future AI-assisted workflows without putting them in source files.</p>
+        <div class="tool-guide"><p>LOCAL-ONLY HANDLING</p><ol><li><b>01</b>Keys stay in this browser session.</li><li><b>02</b>They are never sent to the validator API.</li><li><b>03</b>Current tools do not require or use API keys.</li></ol></div>
+        <label for="openai-key">OpenAI API key <span class="optional">optional</span></label>
+        <input id="openai-key" type="password" autocomplete="off" placeholder="sk-..." spellcheck="false" />
+        <label for="anthropic-key">Anthropic API key <span class="optional">optional</span></label>
+        <input id="anthropic-key" type="password" autocomplete="off" placeholder="sk-ant-..." spellcheck="false" />
+        <button class="primary-action full-width" type="button" data-action="save-keys">Save for this session <span>↗</span></button>
+        <p class="field-hint">Closing this tab or browser session clears these values. Do not enter production keys on a shared device.</p>
+      </form>
+    </dialog>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

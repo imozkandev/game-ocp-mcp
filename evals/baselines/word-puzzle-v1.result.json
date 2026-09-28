@@ -1,0 +1,37 @@
+{
+  "score": 50,
+  "passedTests": 1,
+  "failedTests": 1,
+  "totalTests": 2,
+  "scenarios": [
+    {
+      "id": "json-contract",
+      "input": "Return a starter puzzle level.",
+      "score": 0,
+      "passed": false,
+      "passedTests": [],
+      "failedTests": ["valid-json", "keywords"],
+      "errors": [
+        "Expected validJson=true, received false.",
+        "Missing required: play, easy."
+      ],
+      "checks": [
+        { "name": "valid-json", "passed": false, "message": "Expected validJson=true, received false." },
+        { "name": "keywords", "passed": false, "message": "Missing required: play, easy." }
+      ]
+    },
+    {
+      "id": "forbidden-copy",
+      "input": "Return an advanced puzzle level.",
+      "score": 100,
+      "passed": true,
+      "passedTests": ["valid-json", "keywords"],
+      "failedTests": [],
+      "errors": [],
+      "checks": [
+        { "name": "valid-json", "passed": true, "message": "JSON validity matched the expected value (true)." },
+        { "name": "keywords", "passed": true, "message": "Required and forbidden keyword checks passed." }
+      ]
+    }
+  ]
+}

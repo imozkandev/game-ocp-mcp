@@ -1,0 +1,43 @@
+{
+  "name": "skill-eval-ci",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "bin": {
+    "agent-mon": "./dist/agent-mon-cli.js",
+    "skill-eval": "./dist/cli.js",
+    "unity-guard": "./dist/unity-guard-cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepack": "npm run build",
+    "dev": "tsx watch src/index.ts",
+    "eval": "tsx src/cli.ts",
+    "test": "tsx src/test-cli.ts",
+    "test:balance": "tsx src/ci-tests.ts balance",
+    "test:loc": "tsx src/ci-tests.ts loc",
+    "test:unity-guard": "tsx src/ci-tests.ts unity-guard",
+    "test:eval": "tsx src/ci-eval.ts",
+    "web": "tsx src/web-server.ts"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "chalk": "^5.0.0",
+    "commander": "^13.0.0",
+    "glob": "^13.0.0",
+    "pidusage": "^4.0.1",
+    "table": "^6.9.0",
+    "zod": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/pidusage": "^2.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0"
+  }
+}

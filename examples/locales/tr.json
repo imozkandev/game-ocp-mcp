@@ -1,0 +1,7 @@
+{
+  "welcome": "Tekrar hoş geldin, {player}!",
+  "levelProgress": "{count} seviye tamamladın.",
+  "buttons": {
+    "claim": "{rewardCoins} jetonunu al"
+  }
+}

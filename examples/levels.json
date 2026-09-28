@@ -1,0 +1,26 @@
+[
+  {
+    "levelId": 1,
+    "targetScore": 1000,
+    "maxMoves": 20,
+    "rewardCoins": 50
+  },
+  {
+    "levelId": 2,
+    "targetScore": 1250,
+    "maxMoves": 21,
+    "rewardCoins": 60
+  },
+  {
+    "levelId": 3,
+    "targetScore": 1500,
+    "maxMoves": 85,
+    "rewardCoins": 75
+  },
+  {
+    "levelId": 4,
+    "targetScore": 1750,
+    "maxMoves": 24,
+    "rewardCoins": 0
+  }
+]

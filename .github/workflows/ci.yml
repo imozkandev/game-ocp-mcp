@@ -1,0 +1,78 @@
+name: Studio AI Toolkit CI & Evals
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  test-and-eval:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build All Modules
+        run: npm run build
+
+      # 1. Module test: Balance Linter
+      - name: Run Balance Linter Check
+        run: npm run test:balance
+
+      # 2. Module test: Localization Auditor
+      - name: Run Localization Audit
+        run: npm run test:loc
+
+      # 3. Module test: Unity Guardrails
+      - name: Run Unity C# Guardrails Check
+        run: npm run test:unity-guard
+
+      # 4. Skill evals and PR-ready Markdown report
+      - name: Run Skill Regression Evals
+        id: eval_step
+        run: |
+          npm run test:eval -- --output-md pr-eval-report.md
+          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+          echo "report<<$EOF" >> "$GITHUB_OUTPUT"
+          cat pr-eval-report.md >> "$GITHUB_OUTPUT"
+          echo "$EOF" >> "$GITHUB_OUTPUT"
+
+      # Leave one updated comment rather than adding a new comment on every push.
+      - name: Post Benchmark Summary to PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const marker = "<!-- studio-ai-toolkit-ci -->";
+            const report = `\${{ steps.eval_step.outputs.report }}`;
+            const commentBody = marker + "\n## 🚀 AI Enablement CI Suite Results\n\n" +
+              "- ✅ **Balance Linter:** Passed\n" +
+              "- ✅ **Localization Audit:** Passed\n" +
+              "- ✅ **Unity Guardrails:** Passed\n\n" +
+              "### 📊 Skill Benchmark & Regression Report\n\n" + report;
+            const { owner, repo } = context.repo;
+            const issue_number = context.issue.number;
+            const { data: comments } = await github.rest.issues.listComments({ owner, repo, issue_number, per_page: 100 });
+            const existing = comments.find((comment) => comment.user?.type === "Bot" && comment.body?.includes(marker));
+
+            if (existing) {
+              await github.rest.issues.updateComment({ owner, repo, comment_id: existing.id, body: commentBody });
+            } else {
+              await github.rest.issues.createComment({ owner, repo, issue_number, body: commentBody });
+            }
