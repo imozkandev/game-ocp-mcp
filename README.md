@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./assets/game-OCP-studio-hero.png" alt="A dark, local-first AI game operations workstation with balancing, localization, guardrail, monitoring, and evaluation panels" width="100%" />
+  <img src="./assets/game-ops-studio-hero.png" alt="A dark, local-first AI game operations workstation with balancing, localization, guardrail, monitoring, and evaluation panels" width="100%" />
 
   # Game OCP MCP
 
